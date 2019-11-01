@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.khachalov.one.less1.RealizationTest" tests="6" skipped="0" failures="1" errors="0" timestamp="2019-11-01T14:24:16" hostname="WIN-P676IIU2OFG" time="0.025">
+<testsuite name="ru.khachalov.one.less1.RealizationTest" tests="6" skipped="0" failures="1" errors="0" timestamp="2019-11-01T15:24:55" hostname="WIN-P676IIU2OFG" time="0.025">
   <properties/>
-  <testcase name="testCorrectInput()" classname="ru.khachalov.one.less1.RealizationTest" time="0.009"/>
-  <testcase name="testNaFizzBuss()" classname="ru.khachalov.one.less1.RealizationTest" time="0.004"/>
-  <testcase name="testNaNomer()" classname="ru.khachalov.one.less1.RealizationTest" time="0.002"/>
+  <testcase name="testCorrectInput()" classname="ru.khachalov.one.less1.RealizationTest" time="0.01"/>
+  <testcase name="testNaFizzBuss()" classname="ru.khachalov.one.less1.RealizationTest" time="0.005"/>
+  <testcase name="testNaNomer()" classname="ru.khachalov.one.less1.RealizationTest" time="0.0"/>
   <testcase name="testNaBuss()" classname="ru.khachalov.one.less1.RealizationTest" time="0.001"/>
   <testcase name="testNaFizz()" classname="ru.khachalov.one.less1.RealizationTest" time="0.001"/>
   <testcase name="testIncorrectInput()" classname="ru.khachalov.one.less1.RealizationTest" time="0.003">
     <failure message="java.lang.IllegalArgumentException: Error input param" type="java.lang.IllegalArgumentException">java.lang.IllegalArgumentException: Error input param
-	at ru.khachalov.one.less1.Realization.print(Realization.java:20)
+	at ru.khachalov.one.less1.Realization.print(Realization.java:35)
 	at ru.khachalov.one.less1.RealizationTest.testIncorrectInput(RealizationTest.java:22)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
