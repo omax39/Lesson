@@ -19,7 +19,11 @@ class RealizationTest {
 
     @Test
     void testIncorrectInput(){
-        testRealization.print(-1,0);
+        assertThrows(IllegalArgumentException.class, () ->{
+            testRealization.print(-1,0);
+        });
+        assertEquals(testRealization.getResulSize(),
+                testRealization.sizeResulRigth());
     }
 
     @Test
