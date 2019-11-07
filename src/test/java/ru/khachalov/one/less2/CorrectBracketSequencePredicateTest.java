@@ -16,8 +16,18 @@ class CorrectBracketSequencePredicateTest {
     void correctString(){
         assertEquals(true,
                 CorrectBracketSequencePredicate.test("(())(())"));
-        //assertEquals(true,
-        //       CorrectBracketSequencePredicate.test("{(())()}"));
+        assertEquals(true,
+                CorrectBracketSequencePredicate.test("{(())()}"));
+        assertEquals(true,
+                CorrectBracketSequencePredicate.test("(())()"));
+        assertEquals(true,
+                CorrectBracketSequencePredicate.test("{(())()[{}]}"));
+        assertEquals(true,
+                CorrectBracketSequencePredicate.test("{(())()}[{}]()"));
+        assertEquals(true,
+                CorrectBracketSequencePredicate.test("{(()){{}}()}"));
+        assertEquals(true,
+                CorrectBracketSequencePredicate.test("{(({}))()}"));
         assertEquals(true,
                 CorrectBracketSequencePredicate.test("()"));
         assertEquals(true,

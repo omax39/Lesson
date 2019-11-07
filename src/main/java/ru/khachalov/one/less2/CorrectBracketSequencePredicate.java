@@ -2,6 +2,8 @@ package ru.khachalov.one.less2;
 
 import jdk.internal.jline.internal.Nullable;
 
+import java.util.Arrays;
+
 public final class CorrectBracketSequencePredicate {
 
     private CorrectBracketSequencePredicate(){
@@ -13,6 +15,10 @@ public final class CorrectBracketSequencePredicate {
     final static char CLOSE_SQR = ']';
     final static char OPEN_BRACE = '{';
     final static char CLOSE_BRACE = '}';
+
+    public static String removeCharAt(String s, int pos){
+        return s.substring(0, pos) + s.substring(pos + 1);
+    }
 
     public static boolean test(@Nullable String sequence){
         int i=0;
@@ -28,19 +34,20 @@ public final class CorrectBracketSequencePredicate {
                 sequence.charAt(sequence.length()-1) == OPEN_BRACE ) {
             throw new IllegalArgumentException("wrong String");
         }
-        while (i < sequence.length()) {
-            while ((i < sequence.length()) &&
-                    (sequence.charAt(i) == OPEN_PAR ||
-                    sequence.charAt(i) == OPEN_SQR ||
-                    sequence.charAt(i) == OPEN_BRACE)) {
-                opens += sequence.charAt(i);
+        String tempSeq = sequence;
+        while (i < tempSeq.length()) {
+            while ((i < tempSeq.length()) &&
+                    (tempSeq.charAt(i) == OPEN_PAR ||
+                            tempSeq.charAt(i) == OPEN_SQR ||
+                            tempSeq.charAt(i) == OPEN_BRACE)) {
+                opens += tempSeq.charAt(i);
                 i++;
             }
-            while ((i< sequence.length()) &&
-                    (sequence.charAt(i) == CLOSE_PAR ||
-                    sequence.charAt(i) == CLOSE_SQR ||
-                    sequence.charAt(i) == CLOSE_BRACE)) {
-                close += sequence.charAt(i);
+            while ((i< tempSeq.length()) &&
+                    (tempSeq.charAt(i) == CLOSE_PAR ||
+                            tempSeq.charAt(i) == CLOSE_SQR ||
+                            tempSeq.charAt(i) == CLOSE_BRACE)) {
+                close += tempSeq.charAt(i);
                 i++;
             }
             if (opens.length() == close.length()){
@@ -52,20 +59,37 @@ public final class CorrectBracketSequencePredicate {
                             charClose == CLOSE_SQR) ||
                         (opens.charAt(k) == OPEN_BRACE &
                             charClose == CLOSE_BRACE)){
-                        return true;
                     } else {
                         return false;
                     }
                 }
+                close = "";
+                opens = "";
             } else {
-                return false;
+                int diffLen = opens.length() - close.length();
+                for (int l = 0; l < close.length(); l++){
+                    if ((opens.charAt(l + diffLen) == OPEN_PAR &
+                            close.charAt(close.length() - l - 1) == CLOSE_PAR) ||
+                            (opens.charAt(l + diffLen) == OPEN_SQR &
+                                    close.charAt(close.length() - l - 1) == CLOSE_SQR) ||
+                            (opens.charAt(l + diffLen) == OPEN_BRACE &
+                                    close.charAt(close.length() - l - 1) == CLOSE_BRACE)){
+                    } else {
+                        return false;
+                    }
+                }
+                for (int y = diffLen; y < close.length()*2+1; y++ ) {
+                    tempSeq = removeCharAt(tempSeq, diffLen);
+                }
+                i = 0;
+                close = "";
+                opens = "";
             }
         }
-        return false;
-
+        return true;
     }
 
     public static void main(String[] args) {
-        System.out.println(CorrectBracketSequencePredicate.test("({})"));
+        System.out.println(CorrectBracketSequencePredicate.test("{(())()[{}]}"));
     }
 }

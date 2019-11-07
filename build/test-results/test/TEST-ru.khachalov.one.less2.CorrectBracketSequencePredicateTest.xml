@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.khachalov.one.less2.CorrectBracketSequencePredicateTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-06T11:31:45" hostname="WIN-P676IIU2OFG" time="0.013">
+<testsuite name="ru.khachalov.one.less2.CorrectBracketSequencePredicateTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-07T08:54:21" hostname="WIN-P676IIU2OFG" time="0.014">
   <properties/>
-  <testcase name="correctString()" classname="ru.khachalov.one.less2.CorrectBracketSequencePredicateTest" time="0.013"/>
+  <testcase name="correctString()" classname="ru.khachalov.one.less2.CorrectBracketSequencePredicateTest" time="0.014"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
