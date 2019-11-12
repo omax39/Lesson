@@ -1,56 +1,72 @@
 package ru.khachalov.one.less3;
 
-import java.awt.geom.AffineTransform;
-import java.util.Arrays;
-
 public class Calculator implements ExprBuilder{
-
-    Expr exprReal;
 
     public static String removeCharAt(String s, int pos){
         return s.substring(0, pos) + s.substring(pos + 1);
     }
 
-    public int realizationExpr(String left, String right, char opec){
-        if (opec == '+'){
-            exprReal = new Add(new Const(Integer.parseInt(left)), new Const(Integer.parseInt(right)));
-            return exprReal.evaluate();
+    public Expr realizationExpr(String left, String right, String opec){
+        if (opec.equals("-") & (left.equals(null) || left.equals("+")
+                || left.equals("*") || left.equals("-")|| left.equals("/") )) {
+            return new UnarSub(new Const(Integer.parseInt(right)));
+        } else if (opec.equals("^")){
+            return new Sqr(new Const(Integer.parseInt(left)),
+                    new Const(Integer.parseInt(right)));
+        } else if (opec.equals("*")){
+            return new Mult(new Const(Integer.parseInt(left)),
+                    new Const(Integer.parseInt(right)));
+        } else if (opec.equals("/")){
+            return new Div(new Const(Integer.parseInt(left)),
+                    new Const(Integer.parseInt(right)));
+        } else if (opec.equals("+")){
+            return new Add(new Const(Integer.parseInt(left)),
+                    new Const(Integer.parseInt(right)));
+        } else if (opec.equals("-")){
+            return new Sub(new Const(Integer.parseInt(left)),
+                    new Const(Integer.parseInt(right)));
         }
-        if (opec == '-'){
-            exprReal = new Sub(new Const(Integer.parseInt(left)), new Const(Integer.parseInt(right)));
-            return exprReal.evaluate();
-        }
-        if (opec == '*'){
-            exprReal = new Mult(new Const(Integer.parseInt(left)), new Const(Integer.parseInt(right)));
-            return exprReal.evaluate();
-        }
-        if (opec == '/'){
-            exprReal = new Div(new Const(Integer.parseInt(left)), new Const(Integer.parseInt(right)));
-            return exprReal.evaluate();
-        }
-        if (opec == '^'){
-            exprReal = new Sqr(new Const(Integer.parseInt(left)), new Const(Integer.parseInt(right)));
-            return exprReal.evaluate();
-        }
-        if (opec == '-' & left == null) {
-            exprReal = new UnarSub(new Const(Integer.parseInt(right)));
-            return exprReal.evaluate();
-        }
-        return 0;
-    }
-
-    @Override
-    public Expr build(String input) {
-        input = input.replaceAll(" ", "");
-        String correctSymbol = "1234567890^+-*/()";
-        if (input.matches(correctSymbol)){
-            throw new IllegalArgumentException("wrong String");
-        }
-        System.out.println(input);
         return null;
     }
 
+
+    public Expr parsing(String in){
+        int i =1;
+        Expr expr = new Calculator().realizationExpr(Character.toString(in.charAt(i-1)),
+                Character.toString(in.charAt(i+1)), Character.toString(in.charAt(1)));
+
+        for (i = 1; i < in.length() - 1; i++){
+            return expr;
+        }
+        return null;
+    }
+
+
+    @Override
+    public Expr build(String input) {
+        int i = 1;
+        input = input.replaceAll(" ", "");
+        String correctSymbol = "1234567890^+-*/()";
+        int corrSym = 0;
+        for (int k = 0; k < input.length(); k++){
+            if (correctSymbol.contains(Character.toString(input.charAt(k)))) {
+                corrSym++;
+            }
+        }
+        if (corrSym != input.length()){
+            throw new IllegalArgumentException("wrong String");
+        }
+
+
+
+        return parsing(input);
+        //while (input.contains("(")){
+         //   Par par = new Par(input);
+        //}
+
+    }
+
     public static void main(String[] args) {
-        System.out.println(new Calculator().build("2*( -1+2^3+ 6/3* 5+2*(4-5))"));
+        System.out.println(new Calculator().build("5*6+4").evaluate());
     }
 }
