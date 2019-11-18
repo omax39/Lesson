@@ -25,6 +25,24 @@ class OrdArray
       return nElems;
    }
 
+   public long[] merge(OrdArray arr1, OrdArray arr2){
+      for (int i = 0; i < arr1.size(); i++){
+         for (int j = 0; i < arr2.size(); j++){
+            if (arr1.getVal(i) < arr2.getVal(j)){
+               insert(arr1.getVal(i));
+               break;
+            } else {
+               insert(arr2.getVal(j));
+               break;
+            }
+         }
+      }
+      for (int k = arr1.size(); k < arr2.size(); k++){
+         insert(arr2.getVal(k));
+      }
+      return a;
+   }
+
    public int find(long searchKey)
       {
       int lowerBound = 0;
@@ -35,9 +53,9 @@ class OrdArray
          {
          curIn = (lowerBound + upperBound ) / 2;
          if(a[curIn]==searchKey)
-            return curIn;              // found it
+            return curIn; // found it
          else if(lowerBound > upperBound)
-            return curIn+1;             // can't find it
+            return upperBound + 1;             // can't find it
          else                          // divide range
             {
             if(a[curIn] < searchKey)

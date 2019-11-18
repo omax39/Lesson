@@ -1,4 +1,4 @@
-package ru.khachalov.one.primeri;
+package ru.khachalov.videolection.primeri;
 
 public class Primeri {
 

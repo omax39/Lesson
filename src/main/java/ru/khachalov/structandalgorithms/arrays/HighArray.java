@@ -65,6 +65,19 @@ public class HighArray {
         return -1;
     }
 
+    public void noDups(){
+        for(int i = 0; i < nElems; i++){
+            for (int k = i+1; k < nElems; k++){
+                if (a[i] == a[k]){
+                    for(int j=k; j<nElems; j++) // move higher ones down
+                        a[j] = a[j+1];
+                    nElems--;
+                    k--;
+                }
+            }
+        }
+    }
+
     public void removeMax(){
         delete(getMax());
     }

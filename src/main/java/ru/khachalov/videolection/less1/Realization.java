@@ -1,4 +1,4 @@
-package ru.khachalov.one.less1;
+package ru.khachalov.videolection.less1;
 
 import java.util.ArrayList;
 
