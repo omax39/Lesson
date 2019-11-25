@@ -25,20 +25,43 @@ class OrdArray
       return nElems;
    }
 
+   public long[] getA(){
+      return a;
+   }
+
    public long[] merge(OrdArray arr1, OrdArray arr2){
-      for (int i = 0; i < arr1.size(); i++){
+      int i = 0;
+      /*for (int i = 0; i < arr1.size(); i++){
          for (int j = 0; i < arr2.size(); j++){
             if (arr1.getVal(i) < arr2.getVal(j)){
                insert(arr1.getVal(i));
+               arr1.delete(i);
                break;
             } else {
                insert(arr2.getVal(j));
+               arr2.delete(j);
                break;
             }
          }
+      }*/
+      while (arr1.size() != 0 & arr2.size() != 0){
+         if (arr1.getVal(i) < arr2.getVal(i)){
+            insert(arr1.getVal(i));
+            arr1.delete(arr1.getVal(i));
+         } else {
+            insert(arr2.getVal(i));
+            arr2.delete(arr2.getVal(i));
+         }
       }
-      for (int k = arr1.size(); k < arr2.size(); k++){
-         insert(arr2.getVal(k));
+      if (arr1.size() != 0) {
+         for (int k = 0; k < arr1.size(); k++) {
+            insert(arr1.getVal(k));
+         }
+      }
+      if (arr2.size() != 0) {
+         for (int k = 0; k < arr2.size(); k++) {
+            insert(arr2.getVal(k));
+         }
       }
       return a;
    }

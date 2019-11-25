@@ -19,12 +19,17 @@ public class OrderedApp {
         }
         arr1.display();
         arr2.display();
+        int sizeArr12 = arr1.size() + arr2.size();
         if (arr1.size() < arr2.size()){
             arr.merge(arr1, arr2);
         } else {
             arr.merge(arr2, arr1);
         }
+
         arr.display();
+        if (sizeArr12 == arr.size()){
+            System.out.println("Yes");
+        } else System.out.println("No");
         //arr.insert(77);                // insert 10 items
         //arr.insert(99);
         //arr.insert(44);

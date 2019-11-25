@@ -9,7 +9,8 @@ public class Primeri {
     }
 
     public static void main(String[] args) {
-        Primeri primer = new Primeri();
-        primer.outNumbers();
+        String a = "nbme";
+        String b = "name";
+        System.out.println(a.compareTo(b));
     }
 }
