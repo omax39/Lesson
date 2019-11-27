@@ -1,4 +1,4 @@
-package ru.khachalov.one.less3;
+package ru.khachalov.videolection.less3;
 /* Сложение */
 public class Add implements Expr{
 

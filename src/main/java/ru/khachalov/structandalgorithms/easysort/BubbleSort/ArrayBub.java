@@ -25,13 +25,47 @@ public class ArrayBub {
     //--------------------------------------------------------------
     public void bubbleSort()
     {
-        int out, in;
+        int out, in, low = 0,high = nElems-1;
 
-        for(out=nElems-1; out>1; out--)   // outer loop (backward)
+        /*for(out=nElems-1; out>0; out--)   // outer loop (backward)
             for(in=0; in<out; in++)        // inner loop (forward)
                 if( a[in] > a[in+1] )       // out of order?
-                    swap(in, in+1);          // swap them
+                    swap(in, in+1);*/          // swap them
+
+        while (high > low){
+            for(in=low; in<high; in++) {        // inner loop (forward)
+                if (a[in] > a[in + 1])       // out of order?
+                    swap(in, in + 1);
+            }
+            high--;
+            for (out=high; out > low; out--){
+                if (a[out] < a[out - 1]){
+                    swap(out, out -1 );
+                }
+            }
+            low++;
+        }
+
     }  // end bubbleSort()
+
+    public void oddEvenSort(){
+        boolean c = false;
+        int out = nElems-1;
+        while (!c) {
+            c = true;
+            for (int j = 1; j < out; j=j+2)   // outer loop (backward)
+                if (a[j] > a[j+1]) {
+                    swap(j, j + 1);
+                    if (c) c = false;
+                }
+            for (int i = 0; i < out; i=i+2)   // outer loop (backward)
+                if (a[i] > a[i+1]) {
+                    swap(i, i + 1);
+                    if (c) c = false;
+                }
+        }
+    }
+
     //--------------------------------------------------------------
     private void swap(int one, int two)
     {

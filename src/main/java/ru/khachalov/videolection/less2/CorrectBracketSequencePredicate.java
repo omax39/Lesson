@@ -1,4 +1,4 @@
-package ru.khachalov.one.less2;
+package ru.khachalov.videolection.less2;
 
 import jdk.internal.jline.internal.Nullable;
 

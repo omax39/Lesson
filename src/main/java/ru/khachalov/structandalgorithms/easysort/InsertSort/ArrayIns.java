@@ -39,5 +39,36 @@ public class ArrayIns {
             a[in] = temp;                  // insert marked item
         }  // end for
     }  // end insertionSort()
+
+    public double median(){
+        int halfNElems = nElems/2;
+        if(nElems%2 == 0){
+            return (double)(a[halfNElems]+a[halfNElems-1])/2;
+        }
+        return (double) a[halfNElems];
+    }
+
+    public long getVal(int index){
+        return a[index];
+    }
+
+    public void noDups(){
+        int c = 0;
+        int m = 1;
+        for (int i = 1; i < nElems; i++){
+            for (int l = 0; l < m; l++){
+                if (a[i] == a[l]) {
+                    c++;
+                }
+            }
+            if (c == 0){
+                a[m] = a[i];
+                m++;
+            }
+            c=0;
+        }
+        nElems= m;
+    }
+
 //--------------------------------------------------------------
 }

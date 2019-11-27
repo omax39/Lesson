@@ -1,4 +1,4 @@
-package ru.khachalov.one.less3;
+package ru.khachalov.videolection.less3;
 
 public class Sub implements Expr {
     private final Expr left;

@@ -11,6 +11,6 @@ public class Primeri {
     public static void main(String[] args) {
         String a = "nbme";
         String b = "name";
-        System.out.println(a.compareTo(b));
+        System.out.println(13%2);
     }
 }
