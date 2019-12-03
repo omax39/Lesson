@@ -3,7 +3,7 @@ package ru.khachalov.structandalgorithms.easysort.InsertSort;
 public class InsertSortApp {
     public static void main(String[] args)
     {
-        int maxSize = 1000;            // array size
+        int maxSize = 1000000;            // array size
         ArrayIns arr;                 // reference to array
         arr = new ArrayIns(maxSize);  // create the array
 
@@ -34,7 +34,7 @@ public class InsertSortApp {
 
         arr.insertionSort();          // insertion-sort them
         arr.display();
-        arr.noDups();
+//        arr.noDups();
         arr.display();                // display them again
 //        System.out.println(arr.median());
     }  // end main()
