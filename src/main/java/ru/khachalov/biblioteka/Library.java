@@ -4,38 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private List<Book> books = new ArrayList<>();
-    private List<Visitor> visitors = new ArrayList<>();
-    private boolean statusLib = false;
-    public void closeLib(){
+    private List<Book> books = new ArrayList<>(); //список книг
+    private List<Visitor> visitors = new ArrayList<>(); //список посетителей
+    private boolean statusLib = false; //Статус библиотеки Закрыта/Открыта
+    public void closeLib(){ //Закрыть библиотеку
         statusLib = false;
     }
-    public void openLib(){
+    public void openLib(){ //открыть библиотеку
         statusLib = true;
     }
 
-    public boolean isStatusLib() {
+    public boolean isStatusLib() { //запрос статуса библиотеки
         return statusLib;
     }
 
-    public void addBook(int id, String name, String place, String section){
+    public void addBook(int id, String name, String place, String section){ //добавить книгу в библиотеку
         books.add(new Book(id, name, place, section));
         books.get(books.size()-1).setAvailable(true);
 
     }
-    public Book getBook(int index){
+    public Book getBook(int index){ //получить книгу по индексу
         return books.get(index);
     }
-    public Visitor getVisitorLast(){
+    public Visitor getVisitorLast(){ //получить текущего посетителя
         return visitors.get(visitors.size()-1);
     }
-    public void addVisitor(String name){
+    public void addVisitor(String name){ //добавить посетителя
         visitors.add(new Visitor(name));
     }
-    public void deleteBook(int index){
+    public void deleteBook(int index){ //удалить книгу из библиотеки
         books.remove(index);
     }
-    public int findOfName(String name){
+    public int findOfName(String name){ //поиск индекса книги по имени
         int i;
         for (i = 0; i < books.size(); i++){
             if (books.get(i).getName().equals(name)){
@@ -44,7 +44,7 @@ public class Library {
         }
         return i;
     }
-    public List<Book> getAvailBooks(){
+    public List<Book> getAvailBooks(){ //получить доступные книги
         List<Book> availBooks = new ArrayList<>();
         for (int i = 0; i< books.size(); i++){
             if (books.get(i).isAvailable()){
@@ -53,7 +53,7 @@ public class Library {
         }
         return availBooks;
     }
-    public List<Book> getInfoVisAndBooks(){
+    public List<Book> getInfoVisAndBooks(){ //получить информацию о книгах, которые были взяты (когда, кем, сама книга)
         List<Book> infoBooks = new ArrayList<>();
         for (int i = 0; i< books.size(); i++){
             if (books.get(i).getVisitorLast()!=null){

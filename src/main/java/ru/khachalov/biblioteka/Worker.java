@@ -3,11 +3,11 @@ package ru.khachalov.biblioteka;
 import java.util.Date;
 
 public class Worker extends Library{
-    public void pushOfReturnBook(String nameVis, Date timeVis){
+    public void pushOfReturnBook(String nameVis, Date timeVis){ //Оповещение о том, что нужно вернуть
         Visitor a = new Visitor(nameVis);
         //...//
     }
-    public boolean getBookForVis(String nameBook, String nameVis){
+    public boolean getBookForVis(String nameBook, String nameVis){ //Дать книгу посетителю
         if (isStatusLib()) {
             addVisitor(nameVis);
             int idArray = findOfName(nameBook);
@@ -20,7 +20,7 @@ public class Worker extends Library{
         }
         return false;
     }
-    public boolean takeBookOfVis(String nameBook, String nameVis){
+    public boolean takeBookOfVis(String nameBook, String nameVis){ //Забрать книгу у посетителя
         if (isStatusLib()) {
             addVisitor(nameVis);
             int idArray = findOfName(nameBook);
