@@ -1,15 +1,14 @@
 package ru.khachalov.biblioteka;
 
 public class Manager extends Library {
-    private boolean statusLib = false;
-    public void closeLib(){
-        statusLib = false;
+    @Override
+    public void closeLib() {
+        super.closeLib();
     }
-    public void openLib(){
-        statusLib = true;
-    }
-    public boolean getStatusLib(){
-        return statusLib;
+
+    @Override
+    public void openLib() {
+        super.openLib();
     }
 
     @Override
@@ -21,4 +20,5 @@ public class Manager extends Library {
     public void deleteBook(int index) {
         super.deleteBook(index);
     }
+
 }

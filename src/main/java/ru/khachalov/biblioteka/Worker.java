@@ -8,22 +8,27 @@ public class Worker extends Library{
         //...//
     }
     public boolean getBookForVis(String nameBook, String nameVis){
-        addVisitor(nameVis);
-        int idArray = findOfName(nameBook);
-        if (getBook(idArray).isAvailable()){
-            getBook(idArray).setAvailable(false);
-            getBook(idArray).setBookGet(getVisitorLast());
-            return true;
+        if (isStatusLib()) {
+            addVisitor(nameVis);
+            int idArray = findOfName(nameBook);
+            if (getBook(idArray).isAvailable()) {
+                getBook(idArray).setAvailable(false);
+                getBook(idArray).setBookGet(getVisitorLast());
+                getVisitorLast().setBooksTaked(getBook(idArray));
+                return true;
+            }
         }
         return false;
     }
     public boolean takeBookOfVis(String nameBook, String nameVis){
-        addVisitor(nameVis);
-        int idArray = findOfName(nameBook);
-        if (!getBook(idArray).isAvailable()){
-            getBook(idArray).setAvailable(true);
-            getBook(idArray).setBookSet(getVisitorLast());
-            return true;
+        if (isStatusLib()) {
+            addVisitor(nameVis);
+            int idArray = findOfName(nameBook);
+            if (!getBook(idArray).isAvailable()) {
+                getBook(idArray).setAvailable(true);
+                getBook(idArray).setBookSet(getVisitorLast());
+                return true;
+            }
         }
         return false;
     }
