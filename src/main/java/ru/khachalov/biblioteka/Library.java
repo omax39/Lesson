@@ -10,23 +10,20 @@ public class Library {
         books.get(books.size()-1).setAvailable(true);
 
     }
-    public void getBook(int index){
-        books.get(index);
-
+    public Book getBook(int index){
+        return books.get(index);
     }
     public void deleteBook(int index){
         books.remove(index);
     }
-    public Book findOfName(String name){
+    public int findOfName(String name){
         int i;
         for (i = 0; i < books.size(); i++){
             if (books.get(i).getName().equals(name)){
                 break;
             }
         }
-        if (books.get(i).isAvailable()) {
-            return books.get(i);
-        } else return null;
+        return i;
     }
 //    public Book findOfPlace(String place){
 //        int i;

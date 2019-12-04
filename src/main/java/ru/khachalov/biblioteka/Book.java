@@ -19,12 +19,12 @@ public class Book extends Library{
         this.section = section;
     }
 
-    public void setBookGet(List bookGet) {
-        this.bookGet = bookGet;
+    public void setBookGet(Visitor bookGet) {
+        this.bookGet.add(bookGet);
     }
 
-    public void setTimeSet(List bookSet) {
-        this.bookSet = bookSet;
+    public void setBookSet(Visitor bookSet) {
+        this.bookSet.add(bookSet);
     }
 
     public int getId() {
