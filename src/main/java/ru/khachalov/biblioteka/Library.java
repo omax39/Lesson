@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private List<Book> books = new ArrayList<Book>();
+    private List<Book> books = new ArrayList<>();
+    private List<Visitor> visitors = new ArrayList<>();
     public void addBook(int id, String name, String place, String section){
         books.add(new Book(id, name, place, section));
         books.get(books.size()-1).setAvailable(true);
@@ -12,6 +13,12 @@ public class Library {
     }
     public Book getBook(int index){
         return books.get(index);
+    }
+    public Visitor getVisitorLast(){
+        return visitors.get(visitors.size()-1);
+    }
+    public void addVisitor(String name){
+        visitors.add(new Visitor(name));
     }
     public void deleteBook(int index){
         books.remove(index);

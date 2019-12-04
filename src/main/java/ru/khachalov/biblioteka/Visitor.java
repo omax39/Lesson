@@ -3,15 +3,15 @@ package ru.khachalov.biblioteka;
 import java.util.Date;
 
 public class Visitor extends Library{
-    private Date time = new Date();
+    private Date time;
     private String name;
 
-    Visitor(String name, Date time){
+    Visitor(String name){
         this.name = name;
-        this.time = time;
     }
 
     public Date getTime() {
+        time = new Date();
         return time;
     }
 
