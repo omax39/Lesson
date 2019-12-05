@@ -29,8 +29,8 @@ public class Library {
     public Visitor getVisitorLast(){ //получить текущего посетителя
         return visitors.get(visitors.size()-1);
     }
-    public void addVisitor(String name){ //добавить посетителя
-        visitors.add(new Visitor(name));
+    public void addVisitor(int id, String name){ //добавить посетителя
+        visitors.add(new Visitor(id, name));
     }
     public void deleteBook(int index){ //удалить книгу из библиотеки
         books.remove(index);
@@ -56,11 +56,54 @@ public class Library {
     public List<Book> getInfoVisAndBooks(){ //получить информацию о книгах, которые были взяты (когда, кем, сама книга)
         List<Book> infoBooks = new ArrayList<>();
         for (int i = 0; i< books.size(); i++){
-            if (books.get(i).getVisitorLast()!=null){
+            if (books.get(i).usableBook()){
                 infoBooks.add(books.get(i));
             }
         }
         return infoBooks;
+    }
+    public boolean getBookForVis(String nameBook, int id, String nameVis){ //Дать книгу посетителю
+        if (isStatusLib()) {
+            int indexVis = -1; //индекс посетителя
+            for (int i = 0; i < visitors.size(); i++){ // Перебираем и смотрим есть ли у нас уже такой id пользователя
+                if(visitors.get(i).getId() == id){     // если есть, то присваиваем indexVis id
+                    indexVis = i;
+                }
+            }
+            if (indexVis == -1){                       // Если indexVis все же остался -1, значит такого посетителя нет
+                addVisitor(id, nameVis);               // и нужно его добавить
+                indexVis = getVisitorLast().getId();   // а indexVis присваиваем id добавленного посетителя
+            }
+            int idArray = findOfName(nameBook);        // Ищем книгу по имени, которую захотел посетитель.
+            if (getBook(idArray).isAvailable()) {      // Если книга доступна для выдачи
+                getBook(idArray).setAvailable(false);  // то установливаем флаг "Занята"
+                getBook(idArray).setBookGet(visitors.get(indexVis)); // Передаем книге данные посетителя о выдаче.
+                visitors.get(indexVis).setBooksTaked(getBook(idArray)); // Передаем пользователю инфо о взятых книгах.
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean takeBookOfVis(String nameBook, int id, String nameVis){ //Забрать книгу у посетителя
+        if (isStatusLib()) {
+            int indexVis = -1;
+            for (int i = 0; i < visitors.size(); i++){
+                if(visitors.get(i).getId() == id){
+                    indexVis = i;
+                }
+            }
+            if (indexVis == -1){
+                addVisitor(id, nameVis);
+                indexVis = getVisitorLast().getId();
+            }
+            int idArray = findOfName(nameBook);
+            if (!getBook(idArray).isAvailable()) {
+                getBook(idArray).setAvailable(true);
+                getBook(idArray).setBookSet(visitors.get(indexVis));
+                return true;
+            }
+        }
+        return false;
     }
 //    public Book findOfPlace(String place){
 //        int i;

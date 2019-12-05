@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Book extends Library{
+public class Book{
     private int id; //id книги
     private String name; //ее имя
     private String place; //место на полке
@@ -25,6 +25,13 @@ public class Book extends Library{
 
     public void setBookSet(Visitor bookSet) {
         this.bookSet.add(bookSet);
+    }
+
+    public boolean usableBook(){
+        if (bookSet.size()!=0 & bookSet.size()!=0){
+            return true;
+        }
+        return false;
     }
 
     public int getId() {
@@ -58,4 +65,5 @@ public class Book extends Library{
     public void setAvailable(boolean available) {
         this.available = available;
     }
+
 }

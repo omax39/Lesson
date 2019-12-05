@@ -1,24 +1,20 @@
 package ru.khachalov.biblioteka;
 
-public class Manager extends Library {
-    @Override
-    public void closeLib() {
-        super.closeLib();
+public class Manager {
+    private Library library;
+    public Manager(Library library){
+        this.library = library;
     }
-
-    @Override
-    public void openLib() {
-        super.openLib();
+    public void closeLibrary(){
+        library.closeLib();
     }
-
-    @Override
-    public void addBook(int id, String name, String place, String section) {
-        super.addBook(id, name, place, section);
+    public void openLibrary(){
+        library.openLib();
     }
-
-    @Override
-    public void deleteBook(int index) {
-        super.deleteBook(index);
+    public void addBookInLibrary(int id, String name, String place, String section){
+        library.addBook(id,name,place,section);
     }
-
+    public void deleteBookOfLibrary(int index){ //удалить книгу из библиотеки
+        library.deleteBook(index);
+    }
 }
