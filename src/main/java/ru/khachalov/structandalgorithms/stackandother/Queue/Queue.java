@@ -27,9 +27,13 @@ public class Queue {
     public long remove()         // take item from front of queue
     {
         long temp = queArray[front++]; // get value and incr front
-        if(front == maxSize)           // deal with wraparound
-            front = 0;
-        nItems--;                      // one less item
+        if (!isEmpty()) {
+            if (front == maxSize)           // deal with wraparound
+                front = 0;
+            nItems--;                      // one less item
+        } else {
+            throw new IllegalArgumentException("Queue is Empty");
+        }
         return temp;
     }
     //--------------------------------------------------------------
@@ -38,6 +42,11 @@ public class Queue {
         return queArray[front];
     }
     //--------------------------------------------------------------
+    public void redPurch()      // peek at front of queue
+    {
+        queArray[front]--;
+    }
+
     public boolean isEmpty()    // true if queue is empty
     {
         return (nItems==0);
@@ -52,5 +61,28 @@ public class Queue {
     {
         return nItems;
     }
-//--------------------------------------------------------------
+
+    public void displayQueue() {
+        if (isEmpty()){
+            System.out.println("Очередь пуста");
+        } else if (front == rear){
+            System.out.println("В очереди один элемент: " + queArray[front]);
+        } else if (front < rear){
+            System.out.println("В очереди: ");
+            for (int i = front; i<=rear; i++){
+                System.out.print(queArray[i] + " ");
+            }
+            System.out.println();
+        } else {
+            System.out.println("В очереди: ");
+            for (int i = front; i < maxSize; i++){
+                System.out.print(queArray[i]+" ");
+            }
+            for (int i = 0; i <= rear; i++){
+                System.out.print(queArray[i]+" ");
+            }
+            System.out.println();
+        }
+    }
+    //--------------------------------------------------------------
 }
