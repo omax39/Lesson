@@ -2,11 +2,21 @@ package ru.khachalov.videolection.less2;
 
 import jdk.internal.jline.internal.Nullable;
 
+/*
+Программа для проверки корректности скобок
+Проверяются открытые и закрытые скобки
+Для каждой открытой скобки должна быть закрывающая того же вида
+Также должна быть соблюда правильная последовательность скобок
+Используются следующие виды скобок : ( ) { } [ ]
+P.S. Конечно можно было реализовать это через стек.
+     Но я хотел попробовать через счетчики.
+ */
+
 public final class CorrectBracketSequencePredicate {
 
-    private CorrectBracketSequencePredicate(){
-
-    }
+    /*
+    Задаем каждый вид скобок в отдельную константную переменную
+     */
     final static char OPEN_PAR = '(';
     final static char CLOSE_PAR = ')';
     final static char OPEN_SQR = '[';
@@ -14,80 +24,82 @@ public final class CorrectBracketSequencePredicate {
     final static char OPEN_BRACE = '{';
     final static char CLOSE_BRACE = '}';
 
-    public static String removeCharAt(String s, int pos){
-        return s.substring(0, pos) + s.substring(pos + 1);
+    public static String removeCharAt(String s, int pos){       // Удаление конкретного символа их строки
+        return s.substring(0, pos) + s.substring(pos + 1);      // и возврат отредактированной строки
     }
 
-    public static boolean test(@Nullable String sequence){
-        int i=0;
-        String opens = "";
-        String close = "";
-        if (sequence.isEmpty()){
-            return true;
-        } else if (sequence.charAt(0) == CLOSE_BRACE ||
-                sequence.charAt(0) == CLOSE_PAR ||
-                sequence.charAt(0) == CLOSE_SQR ||
-                sequence.charAt(sequence.length()-1) == OPEN_PAR ||
-                sequence.charAt(sequence.length()-1) == OPEN_SQR ||
-                sequence.charAt(sequence.length()-1) == OPEN_BRACE ) {
-            throw new IllegalArgumentException("wrong String");
+    public static boolean check(@Nullable String sequence){     // Основной метод реализации проверки
+        int i=0;      // Временная переменная, для проверки, что мы не превысили размер строки
+        String opens = "";      // Объявление временной строки для записи открывающих скобок
+        String close = "";      // Объявление временной строки для записи закрывающих скобок
+        if (sequence.isEmpty()){    // Проверка строки на наличие в ней символов
+            return true;        // Если строка пуста, то проверка пройдена
+        } else if (sequence.charAt(0) == CLOSE_BRACE ||     // Если первый символ равен
+                sequence.charAt(0) == CLOSE_PAR ||          // какой-либо из
+                sequence.charAt(0) == CLOSE_SQR ||          // закрывающих скобок
+                sequence.charAt(sequence.length()-1) == OPEN_PAR ||     // Либо последний символ равен
+                sequence.charAt(sequence.length()-1) == OPEN_SQR ||     // какой-либо из
+                sequence.charAt(sequence.length()-1) == OPEN_BRACE ) {  // открывающих скобок
+            return false;       // Проверка провалена
         }
-        String tempSeq = sequence;
-        while (i < tempSeq.length()) {
-            while ((i < tempSeq.length()) &&
-                    (tempSeq.charAt(i) == OPEN_PAR ||
-                            tempSeq.charAt(i) == OPEN_SQR ||
-                            tempSeq.charAt(i) == OPEN_BRACE)) {
-                opens += tempSeq.charAt(i);
-                i++;
+        while (i < sequence.length()) {     // Цикл пока мы обработаем все символы
+            while ((i < sequence.length()) &&       // Пока все символы не обработаны
+                    (sequence.charAt(i) == OPEN_PAR ||      // и проверяемый символ равен скобке вида (
+                            sequence.charAt(i) == OPEN_SQR ||   // или вида [
+                            sequence.charAt(i) == OPEN_BRACE)) {        // или {
+                opens += sequence.charAt(i);     // добавляем во временную строку открытых скобок текущий символ
+                i++;        // Переходим ко следующему символу
             }
-            while ((i< tempSeq.length()) &&
-                    (tempSeq.charAt(i) == CLOSE_PAR ||
-                            tempSeq.charAt(i) == CLOSE_SQR ||
-                            tempSeq.charAt(i) == CLOSE_BRACE)) {
-                close += tempSeq.charAt(i);
-                i++;
+            while ((i< sequence.length()) &&        // Пока все символы не обработаны
+                    (sequence.charAt(i) == CLOSE_PAR ||     // и проверяемый символ равен скобке вида )
+                            sequence.charAt(i) == CLOSE_SQR ||     // или вида ]
+                            sequence.charAt(i) == CLOSE_BRACE)) {       // или }
+                close += sequence.charAt(i);      // добавляем во временную строку закрытых скобок текущий символ
+                i++;        // Переходим ко следующему символу
             }
-            if (opens.length() == close.length()){
-                for (int k = 0; k < opens.length(); k++){
-                    char charClose = close.charAt(close.length() - k - 1);
-                    if ((opens.charAt(k) == OPEN_PAR &
-                            charClose == CLOSE_PAR) ||
-                        (opens.charAt(k) == OPEN_SQR &
-                            charClose == CLOSE_SQR) ||
+            if (opens.length() == close.length()){      // Если текущее кол-во открытых скобок равно кол-ву закрытых
+                                                        // То есть ситуация, когда у нас нет вставленных пар скобок
+                for (int k = 0; k < opens.length(); k++){       // Перебираем текущий список открытых скобок
+                    char charClose = close.charAt(close.length() - k - 1);  // временная переменная закрытой скобки,
+                                                                // которая должна соответствовать текущей открытой
+                    if ((opens.charAt(k) == OPEN_PAR &      // Если текущая открытая скобка
+                            charClose == CLOSE_PAR) ||      // соответствует текущей закрытой
+                        (opens.charAt(k) == OPEN_SQR &      // перебирается соответствие
+                            charClose == CLOSE_SQR) ||      // всех видов скобок
                         (opens.charAt(k) == OPEN_BRACE &
-                            charClose == CLOSE_BRACE)){
+                            charClose == CLOSE_BRACE)){     // то мы просто продолжаем выполнение программы
                     } else {
-                        return false;
+                        return false;      // Если какая-либо пара скобок не прошла проверку, то проверка провалена
                     }
                 }
-                close = "";
-                opens = "";
-            } else {
-                int diffLen = opens.length() - close.length();
-                for (int l = 0; l < close.length(); l++){
-                    if ((opens.charAt(l + diffLen) == OPEN_PAR &
-                            close.charAt(close.length() - l - 1) == CLOSE_PAR) ||
-                            (opens.charAt(l + diffLen) == OPEN_SQR &
-                                    close.charAt(close.length() - l - 1) == CLOSE_SQR) ||
-                            (opens.charAt(l + diffLen) == OPEN_BRACE &
-                                    close.charAt(close.length() - l - 1) == CLOSE_BRACE)){
+                close = "";     // Очищаем временные строки
+                opens = "";     // Очищаем временные строки
+            } else {        // Если кол-во открытых и закрытых скобок на временном участке не совпало
+                int diffLen = opens.length() - close.length();      // Сколько открытых скобок осталось вначале,
+                                                                    // которые мы оставим на потом
+                for (int l = 0; l < close.length(); l++){           // Перебираем все закрытые скобки
+                    if ((opens.charAt(l + diffLen) == OPEN_PAR &    // и сравниваем их с открытой скобкой,
+                            close.charAt(close.length() - l - 1) == CLOSE_PAR) ||   // не учитывая начальные скобки,
+                            (opens.charAt(l + diffLen) == OPEN_SQR &        // которые пока не проверяются.
+                                    close.charAt(close.length() - l - 1) == CLOSE_SQR) ||   // сравниваем соответствие
+                            (opens.charAt(l + diffLen) == OPEN_BRACE &                  // скобок, учитывая
+                                    close.charAt(close.length() - l - 1) == CLOSE_BRACE)){      // расположение
                     } else {
-                        return false;
+                        return false;   // Если выявлено несоответствие, проверка провалена
                     }
                 }
-                for (int y = diffLen; y < close.length()*2+1; y++ ) {
-                    tempSeq = removeCharAt(tempSeq, diffLen);
+                for (int y = diffLen; y < close.length()*2+1; y++ ) {   // Проходимся по уже проверенным нами скобкам
+                    sequence = removeCharAt(sequence, diffLen);     // и удаляем их из строки
                 }
-                i = 0;
-                close = "";
-                opens = "";
+                i = 0;      // Временное значение i обнуляем.
+                close = "";   // Обнуляем временные строки открытык скобок
+                opens = "";     // и закрытых
             }
         }
-        return true;
+        return true;      // Если у нас все прошло без провалов, то проверка считается пройденной успешно
     }
 
     public static void main(String[] args) {
-        System.out.println(CorrectBracketSequencePredicate.test("{(())()[{}]}"));
+        System.out.println(CorrectBracketSequencePredicate.check("{(())()[{}]}")); // тест
     }
 }

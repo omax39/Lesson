@@ -9,46 +9,46 @@ class CorrectBracketSequencePredicateTest {
     @Test
     void nullString() {
         assertEquals(true,
-                CorrectBracketSequencePredicate.test(""));
+                CorrectBracketSequencePredicate.check(""));
     }
 
     @Test
     void correctString(){
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("(())(())"));
+                CorrectBracketSequencePredicate.check("(())(())"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("{(())()}"));
+                CorrectBracketSequencePredicate.check("{(())()}"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("(())()"));
+                CorrectBracketSequencePredicate.check("(())()"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("{(())()[{}]}"));
+                CorrectBracketSequencePredicate.check("{(())()[{}]}"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("{(())()}[{}]()"));
+                CorrectBracketSequencePredicate.check("{(())()}[{}]()"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("{(()){{}}()}"));
+                CorrectBracketSequencePredicate.check("{(()){{}}()}"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("{(({}))()}"));
+                CorrectBracketSequencePredicate.check("{(({}))()}"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("()"));
+                CorrectBracketSequencePredicate.check("()"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("([])"));
+                CorrectBracketSequencePredicate.check("([])"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("()[]"));
+                CorrectBracketSequencePredicate.check("()[]"));
         assertEquals(true,
-                CorrectBracketSequencePredicate.test("{()}"));
+                CorrectBracketSequencePredicate.check("{()}"));
     }
 
     @Test
     void incorrectString(){
         assertThrows(IllegalArgumentException.class,
                 () -> {
-            CorrectBracketSequencePredicate.test(")(");
-            CorrectBracketSequencePredicate.test("][");
-            CorrectBracketSequencePredicate.test("}{");
-            CorrectBracketSequencePredicate.test("(}");
-            CorrectBracketSequencePredicate.test("{]");
-            CorrectBracketSequencePredicate.test("{{{]]");
-            CorrectBracketSequencePredicate.test("{([)}");
+            CorrectBracketSequencePredicate.check(")(");
+            CorrectBracketSequencePredicate.check("][");
+            CorrectBracketSequencePredicate.check("}{");
+            CorrectBracketSequencePredicate.check("(}");
+            CorrectBracketSequencePredicate.check("{]");
+            CorrectBracketSequencePredicate.check("{{{]]");
+            CorrectBracketSequencePredicate.check("{([)}");
                 });
     }
 }

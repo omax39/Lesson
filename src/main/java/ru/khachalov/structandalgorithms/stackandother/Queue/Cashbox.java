@@ -30,7 +30,7 @@ public class Cashbox {
         while (true){
             input = getString();
             if (input.equals("exit")) {
-                System.out.println("Маназин закрыт");
+                System.out.println("Магазин закрыт");
                 break;
             }
             int purchas = (int) (Math.random() * 5 + 1);
