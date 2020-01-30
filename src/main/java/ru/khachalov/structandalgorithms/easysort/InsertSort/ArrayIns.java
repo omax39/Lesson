@@ -26,43 +26,43 @@ public class ArrayIns {
     public void insertionSort()
     {
         int in, out;
-        long copy = 0;
-        long comp = 0;
-        int countDup = 0;
+//        long copy = 0;
+//        long comp = 0;
+//        int countDup = 0;
         for(out=1; out<nElems; out++)     // out is dividing line
         {
             long temp = a[out];            // remove marked item
-            copy++;
+//            copy++;
             in = out;                      // start shifts at out
             while(in>0 && a[in-1] >= temp) // until one is smaller,
             {
                 a[in] = a[in-1];            // shift item to right
-                copy++;
-                comp++;
+//                copy++;
+//                comp++;
                 --in;                       // go left one position
             }
             a[in] = temp;
-            if (a[in+1] == temp){
-                while (in > 0){
-                    a[in] = a[in-1];
-                    in--;
-                }
-                a[in] = -1;
-                countDup++;
-            }
+//            if (a[in+1] == temp){
+//                while (in > 0){
+//                    a[in] = a[in-1];
+//                    in--;
+//                }
+//                a[in] = -1;
+////                countDup++;
+//            }
 //            comp++;
                    // insert marked item
-            copy++;
+//            copy++;
         }  // end for
-        for (int i = 0; i < nElems - countDup; i++){
-            if (countDup < nElems){
-                a[i]=a[i+countDup];
-            }
-        }
-        nElems = nElems - countDup;
-        System.out.println("Кол-во копирований  " + copy);
-        System.out.println("Кол-во сравнений  " + comp);
-        System.out.println("Всего операций  " + (comp+copy));
+//        for (int i = 0; i < nElems - countDup; i++){
+//            if (countDup < nElems){
+//                a[i]=a[i+countDup];
+//            }
+//        }
+//        nElems = nElems - countDup;
+//        System.out.println("Кол-во копирований  " + copy);
+//        System.out.println("Кол-во сравнений  " + comp);
+//        System.out.println("Всего операций  " + (comp+copy));
     }  // end insertionSort()
 
     public double median(){
